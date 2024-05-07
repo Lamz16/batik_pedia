@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Batik Pedia</string>
+    <string name="selamat_datang">Selamat Datang!</string>
+    <string name="text_splash2">Karya Seni Warisan \n Bangsa Indonesia</string>
+    <string name="selanjutnya">Selanjutnya</string>
+    <string name="lewati">Lewati</string>
+    <string name="unesco_pers">UNESCO menetapkan batik sebagai \n Intangible Cultural Heritage (ICH) atau \nWarisan Budaya Takbenda 2 Oktober 2009</string>
+    <string name="mulai">Mulai</string>
 </resources>

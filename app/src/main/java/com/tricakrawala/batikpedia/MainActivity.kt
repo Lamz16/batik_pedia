@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.tricakrawala.batikpedia.ui.theme.BatikPediaTheme
@@ -20,14 +22,12 @@ class MainActivity : ComponentActivity() {
 
             setContent {
                 BatikPediaTheme {
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
-                    ) {
+
+                    Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                         if (!state.isNotNew) {
-                            SplashApp()
+                            SplashApp(modifier = Modifier.padding(innerPadding))
                         } else {
-                            BatikPediaApp()
+                            BatikPediaApp(modifier = Modifier.padding(innerPadding))
                         }
                     }
                 }
