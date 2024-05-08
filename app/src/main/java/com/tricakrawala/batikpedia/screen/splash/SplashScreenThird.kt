@@ -15,6 +15,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,19 +31,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.tricakrawala.batikpedia.MainViewModel
 import com.tricakrawala.batikpedia.R
+import com.tricakrawala.batikpedia.pref.UserModel
 import com.tricakrawala.batikpedia.ui.components.ButtonNextSplah
 import com.tricakrawala.batikpedia.ui.theme.BatikPediaTheme
 import com.tricakrawala.batikpedia.ui.theme.background2
 import com.tricakrawala.batikpedia.ui.theme.poppinsFontFamily
 import com.tricakrawala.batikpedia.ui.theme.primary
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
 fun SplashScreenThird(
     modifier: Modifier = Modifier,
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel = koinViewModel(),
 ) {
+    var isNotNew by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -47,7 +56,11 @@ fun SplashScreenThird(
             .background(background2)
     ) {
 
-        Box(modifier = Modifier.fillMaxWidth().statusBarsPadding()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_batik_pedia),
                 contentDescription = "Logo Batik Pedia",
@@ -67,7 +80,10 @@ fun SplashScreenThird(
         Image(
             painter = painterResource(id = R.drawable.logo_human_splash),
             contentDescription = "logo Unesco",
-            modifier = Modifier.fillMaxWidth().padding(top = 48.dp).height(210.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 48.dp)
+                .height(210.dp)
         )
 
         Text(
@@ -92,7 +108,10 @@ fun SplashScreenThird(
 
 
         Box(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight().navigationBarsPadding()
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .navigationBarsPadding()
         ) {
             Image(
                 painter = painterResource(id = R.drawable.cloud_splash_bottom),
@@ -105,13 +124,29 @@ fun SplashScreenThird(
             Image(
                 painter = painterResource(id = R.drawable.splash_indicator_3),
                 contentDescription = "indicator",
-                modifier = Modifier.fillMaxWidth().align(Alignment.Center).padding(bottom = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center)
+                    .padding(bottom = 16.dp)
             )
 
-            Row(modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 36.dp)) {
-                ButtonNextSplah(onClick = {},color = primary, text = stringResource(id = R.string.mulai), textColor = Color.White )
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 36.dp)
+            ) {
+                ButtonNextSplah(
+                    onClick = {
+                        viewModel.saveSession(UserModel(true))
+                        isNotNew = true
+                    },
+                    color = primary,
+                    text = stringResource(id = R.string.mulai),
+                    textColor = Color.White
+                )
             }
 
+            if (isNotNew) viewModel.getSession()
         }
 
     }
@@ -121,7 +156,7 @@ fun SplashScreenThird(
 
 @Composable
 @Preview(showBackground = true)
-private fun PreviewThree(){
+private fun PreviewThree() {
     BatikPediaTheme {
         SplashScreenThird(navController = rememberNavController())
     }

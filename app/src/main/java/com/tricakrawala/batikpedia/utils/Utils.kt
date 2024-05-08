@@ -13,6 +13,7 @@ import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import com.tricakrawala.batikpedia.BuildConfig
+import com.tricakrawala.batikpedia.navigation.Screen
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -22,6 +23,12 @@ import java.util.Date
 import java.util.Locale
 
 object Utils {
+
+
+    val listScreenWithoutBottomBar = listOf(
+        Screen.Detail.route
+    )
+
 
     private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
     private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())

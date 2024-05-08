@@ -1,5 +1,6 @@
 package com.tricakrawala.batikpedia.screen.splash
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -48,7 +49,9 @@ fun SplashScreenSecond(
             .background(background2)
     ) {
 
-        Box(modifier = Modifier.fillMaxWidth().statusBarsPadding()) {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .statusBarsPadding()) {
             Image(
                 painter = painterResource(id = R.drawable.logo_batik_pedia),
                 contentDescription = "Logo Batik Pedia",
@@ -68,7 +71,10 @@ fun SplashScreenSecond(
         Image(
             painter = painterResource(id = R.drawable.unesco_splash),
             contentDescription = "logo Unesco",
-            modifier = Modifier.fillMaxWidth().padding(top = 82.dp).height(190.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 82.dp)
+                .height(190.dp)
         )
 
         Text(
@@ -93,7 +99,10 @@ fun SplashScreenSecond(
 
 
         Box(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight().navigationBarsPadding()
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .navigationBarsPadding()
         ) {
             Image(
                 painter = painterResource(id = R.drawable.cloud_splash_bottom),
@@ -106,10 +115,15 @@ fun SplashScreenSecond(
             Image(
                 painter = painterResource(id = R.drawable.splash_indicator_2),
                 contentDescription = "indicator",
-                modifier = Modifier.fillMaxWidth().align(Alignment.Center).padding(bottom = 16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center)
+                    .padding(bottom = 16.dp)
             )
 
-            Row(modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 36.dp)) {
+            Row(modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 36.dp)) {
                 ButtonNextSplah(onClick = {navController.navigate(Screen.SplashThird.route)},color = primary, text = stringResource(id = R.string.selanjutnya), textColor = Color.White )
                 Spacer(modifier = Modifier.width(44.dp))
                 ButtonNextSplah(onClick = {navController.navigate(Screen.SplashThird.route)} ,color = Color.White, text = stringResource(id = R.string.lewati), textColor = primary )
