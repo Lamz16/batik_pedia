@@ -24,6 +24,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.tricakrawala.batikpedia.navigation.Screen
 import com.tricakrawala.batikpedia.screen.home.HomeScreen
+import com.tricakrawala.batikpedia.screen.katalog.KatalogScreen
 import com.tricakrawala.batikpedia.ui.components.BottomBar
 import com.tricakrawala.batikpedia.ui.theme.primary
 import com.tricakrawala.batikpedia.utils.Utils
@@ -59,13 +60,16 @@ fun BatikPediaApp(
         NavHost(
             navController = navController,
             startDestination = Screen.Home.route,
-            modifier = Modifier
+            modifier = Modifier.padding()
         ) {
             composable(Screen.Home.route) {
                 HomeScreen(
-
                     navigateToDetail = {}
                 )
+            }
+
+            composable(Screen.Katalog.route) {
+               KatalogScreen()
             }
 
 

@@ -1,8 +1,8 @@
 package com.tricakrawala.batikpedia.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -16,7 +16,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -26,6 +29,7 @@ import com.tricakrawala.batikpedia.navigation.NavigationItem
 import com.tricakrawala.batikpedia.navigation.Screen
 import com.tricakrawala.batikpedia.ui.theme.bottomNavigation
 import com.tricakrawala.batikpedia.ui.theme.iconBottom
+import com.tricakrawala.batikpedia.ui.theme.poppinsFontFamily
 import com.tricakrawala.batikpedia.ui.theme.primary
 
 @Composable
@@ -109,7 +113,16 @@ fun BottomBar(
                             tint = if (currentRoute == item.screen.route) primary else iconBottom
                         )
                     },
-                    label = { Text(item.title, color = if (currentRoute == item.screen.route) primary else iconBottom) },
+                    label = {
+                        Text(
+                            item.title,
+                            color = if (currentRoute == item.screen.route) primary else iconBottom,
+                            fontFamily = poppinsFontFamily,
+                            fontWeight = FontWeight.Normal,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                        )
+                    },
                     selected = currentRoute == item.screen.route,
                     onClick = {
                         navController.navigate(item.screen.route) {
@@ -124,9 +137,9 @@ fun BottomBar(
             } else {
                 BottomNavigationItem(
                     icon = {},
-                    label = {  },
+                    label = { },
                     selected = false,
-                    onClick = {  },
+                    onClick = { },
                     enabled = false
                 )
             }
