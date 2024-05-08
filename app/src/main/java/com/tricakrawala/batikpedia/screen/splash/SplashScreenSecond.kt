@@ -6,10 +6,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,7 +48,7 @@ fun SplashScreenSecond(
             .background(background2)
     ) {
 
-        Box(modifier = Modifier.fillMaxWidth().padding(top = 36.dp)) {
+        Box(modifier = Modifier.fillMaxWidth().statusBarsPadding()) {
             Image(
                 painter = painterResource(id = R.drawable.logo_batik_pedia),
                 contentDescription = "Logo Batik Pedia",
@@ -86,15 +89,15 @@ fun SplashScreenSecond(
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal
         )
-        Spacer(modifier = Modifier.height(64.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
 
         Box(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().fillMaxHeight().navigationBarsPadding()
         ) {
             Image(
                 painter = painterResource(id = R.drawable.cloud_splash_bottom),
-                contentDescription = "Logo Batik Pedia",
+                contentDescription = "Logo Batik bawah",
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(top = 70.dp)
@@ -103,10 +106,10 @@ fun SplashScreenSecond(
             Image(
                 painter = painterResource(id = R.drawable.splash_indicator_2),
                 contentDescription = "indicator",
-                modifier = Modifier.fillMaxWidth().align(Alignment.Center).padding(bottom = 72.dp)
+                modifier = Modifier.fillMaxWidth().align(Alignment.Center).padding(bottom = 16.dp)
             )
 
-            Row(modifier = Modifier.align(Alignment.Center).padding(top = 64.dp)) {
+            Row(modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 36.dp)) {
                 ButtonNextSplah(onClick = {navController.navigate(Screen.SplashThird.route)},color = primary, text = stringResource(id = R.string.selanjutnya), textColor = Color.White )
                 Spacer(modifier = Modifier.width(44.dp))
                 ButtonNextSplah(onClick = {navController.navigate(Screen.SplashThird.route)} ,color = Color.White, text = stringResource(id = R.string.lewati), textColor = primary )

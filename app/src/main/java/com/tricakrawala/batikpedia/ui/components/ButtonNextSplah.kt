@@ -34,8 +34,8 @@ fun ButtonNextSplah(
         modifier = Modifier
             .clip(shape = RoundedCornerShape(10.dp))
             .background(color)
-            .height(36.dp)
-            .width(142.dp)
+            .height(42.dp)
+            .width(160.dp)
             .clickable { onClick() }
     ) {
 
