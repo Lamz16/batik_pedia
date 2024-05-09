@@ -2,22 +2,32 @@ package com.tricakrawala.batikpedia.screen.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -25,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tricakrawala.batikpedia.R
 import com.tricakrawala.batikpedia.model.Nusantara
+import com.tricakrawala.batikpedia.model.Rekomendasi
 import com.tricakrawala.batikpedia.ui.common.UiState
 import com.tricakrawala.batikpedia.ui.components.CardBerita
 import com.tricakrawala.batikpedia.ui.components.NavbarHome
@@ -39,21 +50,43 @@ import org.koin.androidx.compose.koinViewModel
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateToDetail: () -> Unit,
-    viewModel: HomeViewModel= koinViewModel(),
+    viewModel: HomeViewModel = koinViewModel(),
 ) {
+    val uiStateNusantara by viewModel.uiStateNusantara.collectAsState(initial = UiState.Loading)
+    val uiStateRekomendasi by viewModel.uiStateRekomendasi.collectAsState(initial = UiState.Loading)
 
-    viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
-        when (uiState) {
-            is UiState.Loading -> viewModel.getAllCoffeMenu()
-            is UiState.Success -> {
-                HomeContent(navigateToDetail = navigateToDetail, listNusantara = uiState.data)
-            }
-
-            is UiState.Error ->{}
+    LaunchedEffect(true) {
+        if (uiStateNusantara is UiState.Loading) {
+            viewModel.getAllNusantara()
+        }
+        if (uiStateRekomendasi is UiState.Loading) {
+            viewModel.getAllRekomendasi()
         }
     }
 
+    when (val nusantaraState = uiStateNusantara) {
+        is UiState.Success -> {
+            val listNusantara = nusantaraState.data
+            when (val rekomendasiState = uiStateRekomendasi) {
+                is UiState.Success -> {
+                    val listRekomendasi = rekomendasiState.data
+                    HomeContent(
+                        navigateToDetail = navigateToDetail,
+                        listNusantara = listNusantara,
+                        listRekomendasi = listRekomendasi,
+                    )
+                }
 
+                is UiState.Error -> {}
+
+                else -> {}
+            }
+        }
+
+        is UiState.Error -> {}
+
+        else -> {}
+    }
 }
 
 
@@ -61,14 +94,17 @@ fun HomeScreen(
 fun HomeContent(
     modifier: Modifier = Modifier,
     navigateToDetail: () -> Unit,
-    listNusantara: List<Nusantara>
+    listNusantara: List<Nusantara>,
+    listRekomendasi: List<Rekomendasi>
 ) {
+
     Box(
         modifier = Modifier
             .background(background2)
             .fillMaxSize()
             .fillMaxWidth()
             .statusBarsPadding()
+
     ) {
         Image(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_logo_batik_pedia),
@@ -93,8 +129,9 @@ fun HomeContent(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(top = 88.dp, start = 24.dp, end = 24.dp)
+
         ) {
 
             Box(
@@ -117,14 +154,38 @@ fun HomeContent(
             NavbarHome(textContent = stringResource(id = R.string.jelajahi_nusantara))
 
             LazyRow {
-                items(listNusantara){ data ->
-                    NusantaraItemRow(provinsi = data.provinsi, image = data.image, modifier = Modifier.padding(end = 16.dp))
+                items(listNusantara) { data ->
+                    NusantaraItemRow(
+                        provinsi = data.provinsi,
+                        image = data.image,
+                        modifier = Modifier.padding(end = 16.dp)
+                    )
                 }
             }
 
             NavbarHome(textContent = stringResource(id = R.string.rekomendasi_untuk_anda))
 
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(120.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = modifier
+                    .fillMaxWidth()
+                    .navigationBarsPadding()
+            ) {
+                items(listRekomendasi) { data ->
+                    Image(
+                        painter = painterResource(id = data.image),
+                        contentDescription = "Rekomendasi",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .width(70.dp)
+                            .height(180.dp)
+                            .clip(RoundedCornerShape(16.dp))
+                    )
+                }
 
+            }
 
         }
     }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tricakrawala.batikpedia.data.BatikRepository
 import com.tricakrawala.batikpedia.model.Nusantara
+import com.tricakrawala.batikpedia.model.Rekomendasi
 import com.tricakrawala.batikpedia.ui.common.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,20 +13,39 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: BatikRepository) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<UiState<List<Nusantara>>> =
+    private val _uiStateNusantara: MutableStateFlow<UiState<List<Nusantara>>> =
         MutableStateFlow(UiState.Loading)
-    val uiState: StateFlow<UiState<List<Nusantara>>> get() = _uiState
+    val uiStateNusantara: StateFlow<UiState<List<Nusantara>>> get() = _uiStateNusantara
 
-    fun getAllCoffeMenu() {
+
+    private val _uiStateRekomendasi: MutableStateFlow<UiState<List<Rekomendasi>>> =
+        MutableStateFlow(UiState.Loading)
+    val uiStateRekomendasi: StateFlow<UiState<List<Rekomendasi>>> get() = _uiStateRekomendasi
+
+    fun getAllNusantara() {
         viewModelScope.launch {
             repository.getAllNusantara()
                 .catch {
-                    _uiState.value = UiState.Error(it.message.toString())
+                    _uiStateNusantara.value = UiState.Error(it.message.toString())
                 }
                 .collect { nusantara ->
-                    _uiState.value = UiState.Success(nusantara)
+                    _uiStateNusantara.value = UiState.Success(nusantara)
                 }
         }
     }
+
+
+    fun getAllRekomendasi() {
+        viewModelScope.launch {
+            repository.getAllRekomendasi()
+                .catch {
+                    _uiStateRekomendasi.value = UiState.Error(it.message.toString())
+                }
+                .collect { rekomendasi ->
+                    _uiStateRekomendasi.value = UiState.Success(rekomendasi)
+                }
+        }
+    }
+
 
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -52,7 +53,7 @@ fun CardBerita(
             fontWeight = FontWeight.Normal,
             color = background2,
             modifier = Modifier
-                .fillMaxWidth()
+                .wrapContentSize()
                 .padding(top = 8.dp)
                 .align(Alignment.CenterHorizontally),
             fontSize = 12.sp

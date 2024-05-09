@@ -11,5 +11,12 @@ object FakeSourceBatik {
         Nusantara(4, R.drawable.yogyakarta, "Jawa Barat"),
         Nusantara(5, R.drawable.yogyakarta, "Bali"),
     )
+
+    val listRekomendasi = listOf(
+        Rekomendasi(1,R.drawable.rekomendasi1),
+        Rekomendasi(2,R.drawable.rekomendasi2),
+        Rekomendasi(3,R.drawable.rekomendasi1),
+        Rekomendasi(4,R.drawable.rekomendasi2),
+    )
     
 }
