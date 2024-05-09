@@ -48,5 +48,16 @@ object FakeSourceBatik {
         KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
         KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
     )
+
+    val listWisata = listOf(
+        Wisata(1, R.drawable.wisata1, "Kampung Batik Laweyan"),
+        Wisata(2, R.drawable.wisata1, "Kampung Batik Laweyan"),
+        Wisata(3, R.drawable.wisata1, "Kampung Batik Laweyan"),
+        Wisata(4, R.drawable.wisata1, "Kampung Batik Laweyan"),
+        Wisata(5, R.drawable.wisata1, "Kampung Batik Laweyan"),
+        Wisata(6, R.drawable.wisata1, "Kampung Batik Laweyan"),
+        Wisata(7, R.drawable.wisata1, "Kampung Batik Laweyan"),
+        Wisata(8, R.drawable.wisata1, "Kampung Batik Laweyan"),
+    )
     
 }

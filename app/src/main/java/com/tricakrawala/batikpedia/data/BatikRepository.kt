@@ -4,6 +4,7 @@ import com.tricakrawala.batikpedia.model.FakeSourceBatik
 import com.tricakrawala.batikpedia.model.KatalogBatik
 import com.tricakrawala.batikpedia.model.Nusantara
 import com.tricakrawala.batikpedia.model.Rekomendasi
+import com.tricakrawala.batikpedia.model.Wisata
 import com.tricakrawala.batikpedia.pref.UserModel
 import com.tricakrawala.batikpedia.pref.UserPreference
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +15,7 @@ class BatikRepository(private val preference: UserPreference) {
     private val nusantaraList = mutableListOf<Nusantara>()
     private val rekomendasiList = mutableListOf<Rekomendasi>()
     private val batikList = mutableListOf<KatalogBatik>()
+    private val wisataList = mutableListOf<Wisata>()
 
     init{
         if (nusantaraList.isEmpty()){
@@ -33,6 +35,13 @@ class BatikRepository(private val preference: UserPreference) {
                 batikList.add(it)
             }
         }
+
+        if (wisataList.isEmpty()){
+            FakeSourceBatik.listWisata.forEach {
+                wisataList.add(it)
+            }
+        }
+
     }
 
     suspend fun saveSession(user: UserModel) {
@@ -54,6 +63,10 @@ class BatikRepository(private val preference: UserPreference) {
 
     fun getAllBatik(): Flow<List<KatalogBatik>> {
         return flowOf(batikList)
+    }
+
+    fun getAllWisata(): Flow<List<Wisata>> {
+        return flowOf(wisataList)
     }
 
 }

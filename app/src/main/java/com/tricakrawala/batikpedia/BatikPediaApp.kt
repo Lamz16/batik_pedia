@@ -26,6 +26,7 @@ import com.tricakrawala.batikpedia.navigation.Screen
 import com.tricakrawala.batikpedia.screen.home.HomeScreen
 import com.tricakrawala.batikpedia.screen.katalog.KatalogScreen
 import com.tricakrawala.batikpedia.screen.provinsi.ListProvinsiScreen
+import com.tricakrawala.batikpedia.screen.wisata.WisataScreen
 import com.tricakrawala.batikpedia.ui.components.BottomBar
 import com.tricakrawala.batikpedia.ui.theme.background2
 import com.tricakrawala.batikpedia.ui.theme.primary
@@ -81,6 +82,10 @@ fun BatikPediaApp(
 
             composable(Screen.ToListProvinsi.route){
                 ListProvinsiScreen(navigateToDetail = {})
+            }
+
+            composable(Screen.Wisata.route){
+                WisataScreen(navController = navController, navigateToDetail = {  })
             }
 
 
