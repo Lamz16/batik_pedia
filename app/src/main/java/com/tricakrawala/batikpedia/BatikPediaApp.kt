@@ -26,6 +26,7 @@ import com.tricakrawala.batikpedia.navigation.Screen
 import com.tricakrawala.batikpedia.screen.home.HomeScreen
 import com.tricakrawala.batikpedia.screen.katalog.KatalogScreen
 import com.tricakrawala.batikpedia.ui.components.BottomBar
+import com.tricakrawala.batikpedia.ui.theme.background2
 import com.tricakrawala.batikpedia.ui.theme.primary
 import com.tricakrawala.batikpedia.utils.Utils
 
@@ -38,6 +39,8 @@ fun BatikPediaApp(
     val currentRoute = navBackStack?.destination?.route
 
     Scaffold(
+        contentColor = background2,
+        backgroundColor = background2,
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
         floatingActionButton = {
@@ -56,11 +59,11 @@ fun BatikPediaApp(
                 }
             }
         },
-    ) { _ ->
+    ) { innerPadding, ->
         NavHost(
             navController = navController,
             startDestination = Screen.Home.route,
-            modifier = Modifier.padding()
+            modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
                 HomeScreen(

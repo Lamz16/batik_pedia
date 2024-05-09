@@ -5,20 +5,20 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -64,30 +64,38 @@ fun HomeScreen(
         }
     }
 
-    when (val nusantaraState = uiStateNusantara) {
-        is UiState.Success -> {
-            val listNusantara = nusantaraState.data
-            when (val rekomendasiState = uiStateRekomendasi) {
-                is UiState.Success -> {
-                    val listRekomendasi = rekomendasiState.data
-                    HomeContent(
-                        navigateToDetail = navigateToDetail,
-                        listNusantara = listNusantara,
-                        listRekomendasi = listRekomendasi,
-                    )
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+        when (val nusantaraState = uiStateNusantara) {
+            is UiState.Success -> {
+                val listNusantara = nusantaraState.data
+                when (val rekomendasiState = uiStateRekomendasi) {
+                    is UiState.Success -> {
+                        val listRekomendasi = rekomendasiState.data
+                        HomeContent(
+                            navigateToDetail = navigateToDetail,
+                            listNusantara = listNusantara,
+                            listRekomendasi = listRekomendasi,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+
+                    is UiState.Error -> {}
+
+                    else -> {}
                 }
-
-                is UiState.Error -> {}
-
-                else -> {}
             }
+
+            is UiState.Error -> {}
+
+            else -> {}
         }
-
-        is UiState.Error -> {}
-
-        else -> {}
     }
 }
+
 
 
 @Composable
@@ -102,7 +110,6 @@ fun HomeContent(
         modifier = Modifier
             .background(background2)
             .fillMaxSize()
-            .fillMaxWidth()
             .statusBarsPadding()
 
     ) {
@@ -123,14 +130,14 @@ fun HomeContent(
             contentDescription = "",
             modifier = Modifier
                 .align(Alignment.TopEnd)
-                .height(137.dp)
-                .padding(top = 16.dp)
+                .size(180.dp)
         )
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 88.dp, start = 24.dp, end = 24.dp)
+
 
         ) {
 
@@ -166,12 +173,11 @@ fun HomeContent(
             NavbarHome(textContent = stringResource(id = R.string.rekomendasi_untuk_anda))
 
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(120.dp),
+                columns = GridCells.Fixed(count =2),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = modifier
-                    .fillMaxWidth()
-                    .navigationBarsPadding()
+                modifier = Modifier
+                    .height(300.dp)
             ) {
                 items(listRekomendasi) { data ->
                     Image(
@@ -179,9 +185,9 @@ fun HomeContent(
                         contentDescription = "Rekomendasi",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .width(70.dp)
-                            .height(180.dp)
+                            .height(150.dp)
                             .clip(RoundedCornerShape(16.dp))
+
                     )
                 }
 
@@ -195,9 +201,20 @@ fun HomeContent(
 @Preview
 @Composable
 private fun preview() {
+
+    val fakeNusantaraList = listOf(
+        Nusantara(1, R.drawable.yogyakarta,"Provinsi 1"),
+        Nusantara(2, R.drawable.yogyakarta,"Provinsi 2"),
+    )
+
+    val fakeRekomendasiList = listOf(
+        Rekomendasi(1,R.drawable.rekomendasi1),
+        Rekomendasi(2,R.drawable.rekomendasi2),
+        Rekomendasi(2,R.drawable.rekomendasi2),
+        Rekomendasi(2,R.drawable.rekomendasi2),
+    )
+
     BatikPediaTheme {
-//        HomeScreen {
-//
-//        }
+        HomeContent(navigateToDetail = {  }, listNusantara = fakeNusantaraList, listRekomendasi =fakeRekomendasiList )
     }
 }

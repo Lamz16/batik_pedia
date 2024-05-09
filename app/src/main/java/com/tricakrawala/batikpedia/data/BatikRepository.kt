@@ -1,6 +1,7 @@
 package com.tricakrawala.batikpedia.data
 
 import com.tricakrawala.batikpedia.model.FakeSourceBatik
+import com.tricakrawala.batikpedia.model.KatalogBatik
 import com.tricakrawala.batikpedia.model.Nusantara
 import com.tricakrawala.batikpedia.model.Rekomendasi
 import com.tricakrawala.batikpedia.pref.UserModel
@@ -12,6 +13,7 @@ class BatikRepository(private val preference: UserPreference) {
 
     private val nusantaraList = mutableListOf<Nusantara>()
     private val rekomendasiList = mutableListOf<Rekomendasi>()
+    private val batikList = mutableListOf<KatalogBatik>()
 
     init{
         if (nusantaraList.isEmpty()){
@@ -23,6 +25,12 @@ class BatikRepository(private val preference: UserPreference) {
         if (rekomendasiList.isEmpty()){
             FakeSourceBatik.listRekomendasi.forEach {
                 rekomendasiList.add(it)
+            }
+        }
+
+        if (batikList.isEmpty()){
+            FakeSourceBatik.listBatik.forEach {
+                batikList.add(it)
             }
         }
     }
@@ -42,6 +50,10 @@ class BatikRepository(private val preference: UserPreference) {
 
     fun getAllRekomendasi(): Flow<List<Rekomendasi>> {
         return flowOf(rekomendasiList)
+    }
+
+    fun getAllBatik(): Flow<List<KatalogBatik>> {
+        return flowOf(batikList)
     }
 
 }

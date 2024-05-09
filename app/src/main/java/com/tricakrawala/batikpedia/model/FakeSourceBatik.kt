@@ -17,6 +17,17 @@ object FakeSourceBatik {
         Rekomendasi(2,R.drawable.rekomendasi2),
         Rekomendasi(3,R.drawable.rekomendasi1),
         Rekomendasi(4,R.drawable.rekomendasi2),
+        Rekomendasi(4,R.drawable.rekomendasi2),
+        Rekomendasi(4,R.drawable.rekomendasi2),
+        Rekomendasi(4,R.drawable.rekomendasi2),
+        Rekomendasi(4,R.drawable.rekomendasi2),
+    )
+
+    val listBatik = listOf(
+        KatalogBatik(1,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
+        KatalogBatik(2,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
+        KatalogBatik(3,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
+        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
     )
     
 }

@@ -8,6 +8,7 @@ import com.tricakrawala.batikpedia.data.BatikRepository
 import com.tricakrawala.batikpedia.pref.UserPreference
 import com.tricakrawala.batikpedia.pref.dataStore
 import com.tricakrawala.batikpedia.screen.home.HomeViewModel
+import com.tricakrawala.batikpedia.screen.katalog.KatalogViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -19,6 +20,7 @@ val dataModule = module {
     single { BatikRepository(get()) }
     viewModel { MainViewModel(get()) }
     viewModel { HomeViewModel(get()) }
+    viewModel { KatalogViewModel(get()) }
 }
 
 fun provideDataStore(context: Context): DataStore<Preferences> {
