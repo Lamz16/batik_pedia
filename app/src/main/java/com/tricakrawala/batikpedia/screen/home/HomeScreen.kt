@@ -2,6 +2,7 @@ package com.tricakrawala.batikpedia.screen.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,9 +34,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.tricakrawala.batikpedia.R
 import com.tricakrawala.batikpedia.model.Nusantara
 import com.tricakrawala.batikpedia.model.Rekomendasi
+import com.tricakrawala.batikpedia.navigation.Screen
 import com.tricakrawala.batikpedia.ui.common.UiState
 import com.tricakrawala.batikpedia.ui.components.CardBerita
 import com.tricakrawala.batikpedia.ui.components.NavbarHome
@@ -51,6 +55,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateToDetail: () -> Unit,
     viewModel: HomeViewModel = koinViewModel(),
+    navController: NavHostController,
 ) {
     val uiStateNusantara by viewModel.uiStateNusantara.collectAsState(initial = UiState.Loading)
     val uiStateRekomendasi by viewModel.uiStateRekomendasi.collectAsState(initial = UiState.Loading)
@@ -79,7 +84,8 @@ fun HomeScreen(
                             navigateToDetail = navigateToDetail,
                             listNusantara = listNusantara,
                             listRekomendasi = listRekomendasi,
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.fillMaxSize(),
+                            navController = navController
                         )
                     }
 
@@ -103,7 +109,8 @@ fun HomeContent(
     modifier: Modifier = Modifier,
     navigateToDetail: () -> Unit,
     listNusantara: List<Nusantara>,
-    listRekomendasi: List<Rekomendasi>
+    listRekomendasi: List<Rekomendasi>,
+    navController: NavHostController,
 ) {
 
     Box(
@@ -158,7 +165,7 @@ fun HomeContent(
                         .padding(horizontal = 12.dp, vertical = 16.dp)
                 )
             }
-            NavbarHome(textContent = stringResource(id = R.string.jelajahi_nusantara))
+            NavbarHome(textContent = stringResource(id = R.string.jelajahi_nusantara), modifier = Modifier.clickable { navController.navigate(Screen.ToListProvinsi.route)})
 
             LazyRow {
                 items(listNusantara) { data ->
@@ -215,6 +222,6 @@ private fun preview() {
     )
 
     BatikPediaTheme {
-        HomeContent(navigateToDetail = {  }, listNusantara = fakeNusantaraList, listRekomendasi =fakeRekomendasiList )
+        HomeContent(navigateToDetail = {  }, listNusantara = fakeNusantaraList, listRekomendasi =fakeRekomendasiList, navController = rememberNavController() )
     }
 }

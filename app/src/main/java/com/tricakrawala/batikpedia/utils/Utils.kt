@@ -26,7 +26,8 @@ object Utils {
 
 
     val listScreenWithoutBottomBar = listOf(
-        Screen.Detail.route
+        Screen.Detail.route,
+        Screen.ToListProvinsi.route
     )
 
 

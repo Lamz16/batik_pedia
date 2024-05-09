@@ -5,6 +5,7 @@ sealed class Screen(val route : String) {
     object SplashFirst : Screen("splashfirst")
     object SplashSecond : Screen("splashsecond")
     object SplashThird : Screen("splashthird")
+    object ToListProvinsi : Screen("tolistprovinsi")
 
 
     object Detail : Screen("home/{nusantaraId}"){

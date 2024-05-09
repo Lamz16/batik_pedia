@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.tricakrawala.batikpedia.navigation.Screen
 import com.tricakrawala.batikpedia.screen.home.HomeScreen
 import com.tricakrawala.batikpedia.screen.katalog.KatalogScreen
+import com.tricakrawala.batikpedia.screen.provinsi.ListProvinsiScreen
 import com.tricakrawala.batikpedia.ui.components.BottomBar
 import com.tricakrawala.batikpedia.ui.theme.background2
 import com.tricakrawala.batikpedia.ui.theme.primary
@@ -38,25 +39,27 @@ fun BatikPediaApp(
     val navBackStack by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStack?.destination?.route
 
+    val shouldShowBottomBar = currentRoute !in Utils.listScreenWithoutBottomBar
+
     Scaffold(
         contentColor = background2,
         backgroundColor = background2,
         floatingActionButtonPosition = FabPosition.Center,
         isFloatingActionButtonDocked = true,
         floatingActionButton = {
-            Box(modifier = Modifier.offset(y = (-5).dp)) {
-                FloatingActionButton(onClick = {}, shape = CircleShape, containerColor = primary , modifier = Modifier.padding(4.dp)) {
-                    Icon(imageVector = ImageVector.vectorResource(id = R.drawable.ic_bottom_scan), contentDescription = "Scan", tint = Color.White)
+            if (shouldShowBottomBar) {
+                Box(modifier = Modifier.offset(y = (-5).dp)) {
+                    FloatingActionButton(onClick = {}, shape = CircleShape, containerColor = primary , modifier = Modifier.padding(4.dp)) {
+                        Icon(imageVector = ImageVector.vectorResource(id = R.drawable.ic_bottom_scan), contentDescription = "Scan", tint = Color.White)
+                    }
                 }
             }
 
         },
 
         bottomBar = {
-            for (i in Utils.listScreenWithoutBottomBar.indices) {
-                if (currentRoute != Utils.listScreenWithoutBottomBar[i]) {
-                    BottomBar(navController, modifier = Modifier.navigationBarsPadding())
-                }
+            if (shouldShowBottomBar) {
+                BottomBar(navController, modifier = Modifier.navigationBarsPadding())
             }
         },
     ) { innerPadding, ->
@@ -67,12 +70,17 @@ fun BatikPediaApp(
         ) {
             composable(Screen.Home.route) {
                 HomeScreen(
-                    navigateToDetail = {}
+                    navigateToDetail = {},
+                    navController = navController
                 )
             }
 
             composable(Screen.Katalog.route) {
                KatalogScreen()
+            }
+
+            composable(Screen.ToListProvinsi.route){
+                ListProvinsiScreen(navigateToDetail = {})
             }
 
 

@@ -1,24 +1,22 @@
-package com.tricakrawala.batikpedia.screen.katalog
+package com.tricakrawala.batikpedia.screen.provinsi
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -30,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,32 +36,33 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tricakrawala.batikpedia.R
-import com.tricakrawala.batikpedia.model.KatalogBatik
+import com.tricakrawala.batikpedia.model.Nusantara
 import com.tricakrawala.batikpedia.ui.common.UiState
-import com.tricakrawala.batikpedia.ui.components.KatalogItemRow
+import com.tricakrawala.batikpedia.ui.components.ProvinsiItemRow
 import com.tricakrawala.batikpedia.ui.components.SearchBarKatalog
 import com.tricakrawala.batikpedia.ui.theme.BatikPediaTheme
 import com.tricakrawala.batikpedia.ui.theme.background2
 import com.tricakrawala.batikpedia.ui.theme.poppinsFontFamily
-import com.tricakrawala.batikpedia.ui.theme.primary
 import com.tricakrawala.batikpedia.ui.theme.textColor
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun KatalogScreen(
+fun ListProvinsiScreen(
     modifier: Modifier = Modifier,
-    viewModel: KatalogViewModel = koinViewModel(),
-) {
+    viewModel: ProvinsiViewModel= koinViewModel(),
+    navigateToDetail : () -> Unit,
+){
+
     val uiState by viewModel.uiState.collectAsState(initial = UiState.Loading)
     LaunchedEffect(true) {
         if (uiState is UiState.Loading) {
-            viewModel.getAllBatik()
+            viewModel.getAllNusantara()
         }
     }
 
-    when (val batik = uiState) {
+    when (val nusantara = uiState) {
         is UiState.Success -> {
-            KatalogContent(listBatik = batik.data)
+            ListProvinsiContent( navigateToDetail = navigateToDetail, listProvinsi = nusantara.data)
         }
 
         is UiState.Error -> {}
@@ -72,19 +70,17 @@ fun KatalogScreen(
 
         }
     }
-}
 
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KatalogContent(
+fun ListProvinsiContent(
     modifier: Modifier = Modifier,
-    listBatik: List<KatalogBatik>
-) {
+    listProvinsi : List<Nusantara>,
+    navigateToDetail: () -> Unit,
+){
     var query by remember { mutableStateOf("") }
-//    val focusManager = LocalFocusManager.current
-//    focusManager.clearFocus()
-
 
     Box(
         modifier = Modifier
@@ -105,7 +101,7 @@ fun KatalogContent(
         CenterAlignedTopAppBar(
             title = {
                 Text(
-                    text = stringResource(id = R.string.menu_katalog),
+                    text = stringResource(id = R.string.menu_provinsi),
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.SemiBold,
                     color = textColor,
@@ -125,53 +121,21 @@ fun KatalogContent(
 
 
         ) {
-            Row(
+            SearchBarKatalog(
+                query = query,
+                onQueryChange = { newQuery -> query = newQuery },
                 modifier = Modifier
                     .fillMaxWidth()
+            )
+
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp).navigationBarsPadding(),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(end = 4.dp, start = 4.dp, bottom = 4.dp),
             ) {
-                SearchBarKatalog(
-                    query = query,
-                    onQueryChange = { newQuery -> query = newQuery },
-                    modifier = Modifier.weight(1f).padding(end = 16.dp)
-                )
-
-
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .clip(RoundedCornerShape(10.dp))
-                        .size(56.dp)
-                        .background(primary),
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_filter_catalog),
-                        contentDescription = "Filter",
-                        tint = Color.White,
-                        modifier = Modifier.align(
-                            Alignment.Center
-                        )
-                    )
+                items(listProvinsi){data ->
+                    ProvinsiItemRow(image = data.image, provinsi = data.provinsi)
                 }
-
-            }
-
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(count = 2),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 8.dp)
-
-            ) {
-                items(listBatik) { data ->
-                    KatalogItemRow(
-                        image = data.image,
-                        motif = data.namaMotif,
-                        jenis = data.jenisBatik
-                    )
-                }
-
             }
 
         }
@@ -179,21 +143,23 @@ fun KatalogContent(
 
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-private fun preview() {
-    val dummyBatik = listOf(
-        KatalogBatik(1, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
-        KatalogBatik(2, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
-        KatalogBatik(3, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
-        KatalogBatik(4, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
-        KatalogBatik(5, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
-        KatalogBatik(6, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
-        KatalogBatik(7, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
-        KatalogBatik(8, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
-        KatalogBatik(9, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
+private fun preview(){
+    val dummyProvinsi = listOf(
+        Nusantara(1, R.drawable.yogyakarta, "Yogyakarta"),
+        Nusantara(2, R.drawable.yogyakarta, "Yogyakarta"),
+        Nusantara(3, R.drawable.yogyakarta, "Yogyakarta"),
+        Nusantara(4, R.drawable.yogyakarta, "Yogyakarta"),
+        Nusantara(5, R.drawable.yogyakarta, "Yogyakarta"),
+        Nusantara(6, R.drawable.yogyakarta, "Yogyakarta"),
+        Nusantara(7, R.drawable.yogyakarta, "Yogyakarta"),
+        Nusantara(8, R.drawable.yogyakarta, "Yogyakarta"),
+        Nusantara(9, R.drawable.yogyakarta, "Yogyakarta"),
     )
     BatikPediaTheme {
-        KatalogContent(listBatik = dummyBatik)
+
+        ListProvinsiContent(listProvinsi = dummyProvinsi) {
+        }
     }
 }

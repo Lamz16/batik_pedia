@@ -23,7 +23,7 @@ fun NavbarHome(
     textContent : String
 ){
     Row(
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 8.dp)
     ) {
         Text(
