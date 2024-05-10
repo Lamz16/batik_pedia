@@ -25,6 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.tricakrawala.batikpedia.navigation.Screen
+import com.tricakrawala.batikpedia.screen.beritaacara.BeritaAcaraScreen
 import com.tricakrawala.batikpedia.screen.home.HomeScreen
 import com.tricakrawala.batikpedia.screen.katalog.KatalogScreen
 import com.tricakrawala.batikpedia.screen.provinsi.DetailProvinsiScreen
@@ -111,6 +112,9 @@ fun BatikPediaApp(
 
             composable(Screen.Wisata.route) {
                 WisataScreen(navController = navController, navigateToDetail = { })
+            }
+            composable(Screen.Berita.route){
+                BeritaAcaraScreen(navController = navController)
             }
 
 

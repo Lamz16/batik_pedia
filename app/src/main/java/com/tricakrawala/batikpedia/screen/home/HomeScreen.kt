@@ -154,6 +154,7 @@ fun HomeContent(
                     .fillMaxWidth()
                     .background(primary)
                     .align(Alignment.CenterHorizontally)
+                    .clickable { navController.navigate(Screen.Berita.route) }
 
 
             ) {

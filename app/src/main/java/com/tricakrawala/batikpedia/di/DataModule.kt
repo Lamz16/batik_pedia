@@ -7,6 +7,7 @@ import com.tricakrawala.batikpedia.MainViewModel
 import com.tricakrawala.batikpedia.data.BatikRepository
 import com.tricakrawala.batikpedia.pref.UserPreference
 import com.tricakrawala.batikpedia.pref.dataStore
+import com.tricakrawala.batikpedia.screen.beritaacara.BeritaViewModel
 import com.tricakrawala.batikpedia.screen.home.HomeViewModel
 import com.tricakrawala.batikpedia.screen.katalog.KatalogViewModel
 import com.tricakrawala.batikpedia.screen.provinsi.ProvinsiViewModel
@@ -25,6 +26,7 @@ val dataModule = module {
     viewModel { KatalogViewModel(get()) }
     viewModel { ProvinsiViewModel(get()) }
     viewModel { WisataViewModel(get()) }
+    viewModel { BeritaViewModel(get()) }
 }
 
 fun provideDataStore(context: Context): DataStore<Preferences> {

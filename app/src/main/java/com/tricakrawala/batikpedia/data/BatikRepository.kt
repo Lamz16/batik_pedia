@@ -1,5 +1,6 @@
 package com.tricakrawala.batikpedia.data
 
+import com.tricakrawala.batikpedia.model.Berita
 import com.tricakrawala.batikpedia.model.FakeSourceBatik
 import com.tricakrawala.batikpedia.model.KatalogBatik
 import com.tricakrawala.batikpedia.model.Nusantara
@@ -16,6 +17,7 @@ class BatikRepository(private val preference: UserPreference) {
     private val rekomendasiList = mutableListOf<Rekomendasi>()
     private val batikList = mutableListOf<KatalogBatik>()
     private val wisataList = mutableListOf<Wisata>()
+    private val beritaList = mutableListOf<Berita>()
 
     init{
         if (nusantaraList.isEmpty()){
@@ -42,6 +44,11 @@ class BatikRepository(private val preference: UserPreference) {
             }
         }
 
+        if(beritaList.isEmpty()){
+            FakeSourceBatik.listBerita.forEach {
+                beritaList.add(it)
+            }
+        }
     }
 
     suspend fun saveSession(user: UserModel) {
@@ -68,6 +75,8 @@ class BatikRepository(private val preference: UserPreference) {
     fun getAllWisata(): Flow<List<Wisata>> {
         return flowOf(wisataList)
     }
+
+    fun getAllBerita() = flowOf(beritaList)
 
     fun getProvinsiById(idProvinsi : Long) : Nusantara = nusantaraList.first { it.idNusantara == idProvinsi }
 
