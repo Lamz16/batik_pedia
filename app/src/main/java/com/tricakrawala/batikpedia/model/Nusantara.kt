@@ -1,8 +1,10 @@
 package com.tricakrawala.batikpedia.model
 
 data class Nusantara(
-    val id : Long,
+    val idNusantara : Long,
     val image : Int,
-    val provinsi : String
+    val provinsi : String,
+    val idBatik : Long,
+    val idWisata : Long
 )
 

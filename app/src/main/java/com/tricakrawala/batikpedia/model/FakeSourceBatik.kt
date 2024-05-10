@@ -5,11 +5,11 @@ import com.tricakrawala.batikpedia.R
 object FakeSourceBatik {
 
     val listNusantara = listOf(
-        Nusantara(1, R.drawable.yogyakarta, "Yogyakarta"),
-        Nusantara(2, R.drawable.yogyakarta, "jawa Timur"),
-        Nusantara(3, R.drawable.yogyakarta, "Jawa Tengah"),
-        Nusantara(4, R.drawable.yogyakarta, "Jawa Barat"),
-        Nusantara(5, R.drawable.yogyakarta, "Bali"),
+        Nusantara(1, R.drawable.yogyakarta, "Yogyakarta",1,1),
+        Nusantara(2, R.drawable.yogyakarta, "jawa Timur",2,2),
+        Nusantara(3, R.drawable.yogyakarta, "Jawa Tengah",3,3),
+        Nusantara(4, R.drawable.yogyakarta, "Jawa Barat",4,4),
+        Nusantara(5, R.drawable.yogyakarta, "Bali",4,4),
     )
 
     val listRekomendasi = listOf(
@@ -17,10 +17,7 @@ object FakeSourceBatik {
         Rekomendasi(2,R.drawable.rekomendasi2),
         Rekomendasi(3,R.drawable.rekomendasi1),
         Rekomendasi(4,R.drawable.rekomendasi2),
-        Rekomendasi(4,R.drawable.rekomendasi2),
-        Rekomendasi(4,R.drawable.rekomendasi2),
-        Rekomendasi(4,R.drawable.rekomendasi2),
-        Rekomendasi(4,R.drawable.rekomendasi2),
+        Rekomendasi(5,R.drawable.rekomendasi2),
     )
 
     val listBatik = listOf(
@@ -28,25 +25,8 @@ object FakeSourceBatik {
         KatalogBatik(2,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
         KatalogBatik(3,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
         KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
-        KatalogBatik(4,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
+        KatalogBatik(5,R.drawable.batik1, "Motif Batik Kawung", "Motif Batik Megamendung"),
+
     )
 
     val listWisata = listOf(

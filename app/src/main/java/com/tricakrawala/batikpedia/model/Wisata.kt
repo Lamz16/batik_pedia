@@ -1,7 +1,7 @@
 package com.tricakrawala.batikpedia.model
 
 data class Wisata(
-    val id : Long,
+    val idWisata : Long,
     val image : Int,
     val namaWisata : String
 )

@@ -2,6 +2,7 @@ package com.tricakrawala.batikpedia.screen.provinsi
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,8 +16,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -35,6 +40,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.tricakrawala.batikpedia.R
 import com.tricakrawala.batikpedia.model.Nusantara
 import com.tricakrawala.batikpedia.ui.common.UiState
@@ -50,7 +57,8 @@ import org.koin.androidx.compose.koinViewModel
 fun ListProvinsiScreen(
     modifier: Modifier = Modifier,
     viewModel: ProvinsiViewModel= koinViewModel(),
-    navigateToDetail : () -> Unit,
+    navigateToDetail : (Long) -> Unit,
+    navController: NavHostController
 ){
 
     val uiState by viewModel.uiState.collectAsState(initial = UiState.Loading)
@@ -62,7 +70,7 @@ fun ListProvinsiScreen(
 
     when (val nusantara = uiState) {
         is UiState.Success -> {
-            ListProvinsiContent( navigateToDetail = navigateToDetail, listProvinsi = nusantara.data)
+            ListProvinsiContent( navigateToDetail = navigateToDetail, listProvinsi = nusantara.data, navController = navController)
         }
 
         is UiState.Error -> {}
@@ -78,7 +86,8 @@ fun ListProvinsiScreen(
 fun ListProvinsiContent(
     modifier: Modifier = Modifier,
     listProvinsi : List<Nusantara>,
-    navigateToDetail: () -> Unit,
+    navigateToDetail: (Long) -> Unit,
+    navController : NavHostController,
 ){
     var query by remember { mutableStateOf("") }
 
@@ -100,13 +109,24 @@ fun ListProvinsiContent(
 
         CenterAlignedTopAppBar(
             title = {
-                Text(
-                    text = stringResource(id = R.string.menu_provinsi),
-                    fontFamily = poppinsFontFamily,
-                    fontWeight = FontWeight.SemiBold,
-                    color = textColor,
-                    fontSize = 16.sp
-                )
+                    Text(
+                        text = stringResource(id = R.string.menu_provinsi),
+                        fontFamily = poppinsFontFamily,
+                        fontWeight = FontWeight.SemiBold,
+                        color = textColor,
+                        fontSize = 16.sp
+                    )
+            },
+            navigationIcon = {
+                IconButton(
+                    onClick = { navController.popBackStack() }
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
+                        contentDescription = stringResource(id = R.string.back),
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
             },
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -129,12 +149,15 @@ fun ListProvinsiContent(
             )
 
             LazyColumn(
-                modifier = Modifier.fillMaxWidth().padding(top = 8.dp).navigationBarsPadding(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+                    .navigationBarsPadding(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(end = 4.dp, start = 4.dp, bottom = 4.dp),
             ) {
                 items(listProvinsi){data ->
-                    ProvinsiItemRow(image = data.image, provinsi = data.provinsi)
+                    ProvinsiItemRow(image = data.image, provinsi = data.provinsi, modifier = modifier.clickable { navigateToDetail(data.idNusantara)})
                 }
             }
 
@@ -147,19 +170,14 @@ fun ListProvinsiContent(
 @Composable
 private fun preview(){
     val dummyProvinsi = listOf(
-        Nusantara(1, R.drawable.yogyakarta, "Yogyakarta"),
-        Nusantara(2, R.drawable.yogyakarta, "Yogyakarta"),
-        Nusantara(3, R.drawable.yogyakarta, "Yogyakarta"),
-        Nusantara(4, R.drawable.yogyakarta, "Yogyakarta"),
-        Nusantara(5, R.drawable.yogyakarta, "Yogyakarta"),
-        Nusantara(6, R.drawable.yogyakarta, "Yogyakarta"),
-        Nusantara(7, R.drawable.yogyakarta, "Yogyakarta"),
-        Nusantara(8, R.drawable.yogyakarta, "Yogyakarta"),
-        Nusantara(9, R.drawable.yogyakarta, "Yogyakarta"),
+        Nusantara(1, R.drawable.yogyakarta, "Yogyakarta",1,1),
+        Nusantara(2, R.drawable.yogyakarta, "Yogyakarta",2,2),
+        Nusantara(3, R.drawable.yogyakarta, "Yogyakarta",3,3),
+        Nusantara(4, R.drawable.yogyakarta, "Yogyakarta",4,4),
+        Nusantara(5, R.drawable.yogyakarta, "Yogyakarta",5,5),
     )
     BatikPediaTheme {
 
-        ListProvinsiContent(listProvinsi = dummyProvinsi) {
-        }
+        ListProvinsiContent(listProvinsi = dummyProvinsi, navController = rememberNavController(), navigateToDetail = {})
     }
 }

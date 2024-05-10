@@ -6,6 +6,9 @@ sealed class Screen(val route : String) {
     object SplashSecond : Screen("splashsecond")
     object SplashThird : Screen("splashthird")
     object ToListProvinsi : Screen("tolistprovinsi")
+    object DetailProvinsi : Screen("toListProvinsi/{idNusantara}"){
+        fun createRoute(idNusantara : Long) = "toListProvinsi/$idNusantara"
+    }
 
 
     object Detail : Screen("home/{nusantaraId}"){

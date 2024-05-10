@@ -210,8 +210,8 @@ fun HomeContent(
 private fun preview() {
 
     val fakeNusantaraList = listOf(
-        Nusantara(1, R.drawable.yogyakarta,"Provinsi 1"),
-        Nusantara(2, R.drawable.yogyakarta,"Provinsi 2"),
+        Nusantara(1, R.drawable.yogyakarta,"Provinsi 1",1,1),
+        Nusantara(2, R.drawable.yogyakarta,"Provinsi 2",2,2),
     )
 
     val fakeRekomendasiList = listOf(

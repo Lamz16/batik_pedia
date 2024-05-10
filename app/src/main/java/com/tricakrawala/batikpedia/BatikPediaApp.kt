@@ -18,13 +18,16 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.tricakrawala.batikpedia.navigation.Screen
 import com.tricakrawala.batikpedia.screen.home.HomeScreen
 import com.tricakrawala.batikpedia.screen.katalog.KatalogScreen
+import com.tricakrawala.batikpedia.screen.provinsi.DetailProvinsiScreen
 import com.tricakrawala.batikpedia.screen.provinsi.ListProvinsiScreen
 import com.tricakrawala.batikpedia.screen.wisata.WisataScreen
 import com.tricakrawala.batikpedia.ui.components.BottomBar
@@ -50,8 +53,17 @@ fun BatikPediaApp(
         floatingActionButton = {
             if (shouldShowBottomBar) {
                 Box(modifier = Modifier.offset(y = (-5).dp)) {
-                    FloatingActionButton(onClick = {}, shape = CircleShape, containerColor = primary , modifier = Modifier.padding(4.dp)) {
-                        Icon(imageVector = ImageVector.vectorResource(id = R.drawable.ic_bottom_scan), contentDescription = "Scan", tint = Color.White)
+                    FloatingActionButton(
+                        onClick = {},
+                        shape = CircleShape,
+                        containerColor = primary,
+                        modifier = Modifier.padding(4.dp)
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_bottom_scan),
+                            contentDescription = "Scan",
+                            tint = Color.White
+                        )
                     }
                 }
             }
@@ -63,7 +75,7 @@ fun BatikPediaApp(
                 BottomBar(navController, modifier = Modifier.navigationBarsPadding())
             }
         },
-    ) { innerPadding, ->
+    ) { innerPadding ->
         NavHost(
             navController = navController,
             startDestination = Screen.Home.route,
@@ -77,15 +89,28 @@ fun BatikPediaApp(
             }
 
             composable(Screen.Katalog.route) {
-               KatalogScreen()
+                KatalogScreen()
             }
 
-            composable(Screen.ToListProvinsi.route){
-                ListProvinsiScreen(navigateToDetail = {})
+            composable(
+                Screen.ToListProvinsi.route,
+
+                ) {
+
+                ListProvinsiScreen(navigateToDetail = { idNusantara ->
+                    navController.navigate(Screen.DetailProvinsi.createRoute(idNusantara))
+                }, navController = navController)
+            }
+            composable(
+                Screen.DetailProvinsi.route,
+                arguments = listOf(navArgument("idNusantara") { type = NavType.LongType }),
+            ) {
+                val id = it.arguments?.getLong("idNusantara") ?: -1L
+                DetailProvinsiScreen(idProvinsi = id)
             }
 
-            composable(Screen.Wisata.route){
-                WisataScreen(navController = navController, navigateToDetail = {  })
+            composable(Screen.Wisata.route) {
+                WisataScreen(navController = navController, navigateToDetail = { })
             }
 
 
