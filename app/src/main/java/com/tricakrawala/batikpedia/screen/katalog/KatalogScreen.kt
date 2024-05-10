@@ -2,6 +2,7 @@ package com.tricakrawala.batikpedia.screen.katalog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,6 +55,7 @@ import org.koin.androidx.compose.koinViewModel
 fun KatalogScreen(
     modifier: Modifier = Modifier,
     viewModel: KatalogViewModel = koinViewModel(),
+    navToDetail : (Long) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState(initial = UiState.Loading)
     LaunchedEffect(true) {
@@ -64,7 +66,7 @@ fun KatalogScreen(
 
     when (val batik = uiState) {
         is UiState.Success -> {
-            KatalogContent(listBatik = batik.data)
+            KatalogContent(listBatik = batik.data, navToDetail = navToDetail)
         }
 
         is UiState.Error -> {}
@@ -79,7 +81,8 @@ fun KatalogScreen(
 @Composable
 fun KatalogContent(
     modifier: Modifier = Modifier,
-    listBatik: List<KatalogBatik>
+    listBatik: List<KatalogBatik>,
+    navToDetail : (Long) -> Unit,
 ) {
     var query by remember { mutableStateOf("") }
 //    val focusManager = LocalFocusManager.current
@@ -168,7 +171,8 @@ fun KatalogContent(
                     KatalogItemRow(
                         image = data.image,
                         motif = data.namaMotif,
-                        jenis = data.jenisBatik
+                        jenis = data.jenisBatik,
+                        modifier = modifier.clickable { navToDetail(data.idBatik) }
                     )
                 }
 
@@ -194,6 +198,6 @@ private fun preview() {
         KatalogBatik(9, R.drawable.batik1, "Mega Mendung", "Batik Tradisional"),
     )
     BatikPediaTheme {
-        KatalogContent(listBatik = dummyBatik)
+        KatalogContent(listBatik = dummyBatik, navToDetail = {})
     }
 }

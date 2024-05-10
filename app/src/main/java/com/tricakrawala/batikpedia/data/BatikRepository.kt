@@ -72,6 +72,8 @@ class BatikRepository(private val preference: UserPreference) {
         return flowOf(batikList)
     }
 
+    fun getBatikById(idBatik : Long) = batikList.first { it.idBatik == idBatik }
+
     fun getAllWisata(): Flow<List<Wisata>> {
         return flowOf(wisataList)
     }

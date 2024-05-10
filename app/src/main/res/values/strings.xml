@@ -16,8 +16,11 @@
     <string name="menu_provinsi">Provinsi</string>
     <string name="menu_wisata_top_bar">Destinasi Wisata Batik</string>
     <string name="back">kembali</string>
+    <string name="provinsi_">Provinsi %s</string>
     <string name="tentang_yogya">Yogyakarta, kota di Pulau Jawa, didirikan pada tahun 1755 oleh Sultan Hamengkubuwono I. Kota ini terkenal sebagai pusat pendidikan dan kebudayaan, dengan Universitas Gadjah Mada sebagai salah satu institusi pendidikan utamanya. Selain itu, Yogyakarta memainkan peran penting dalam perjuangan kemerdekaan Indonesia dan menjadi ibu kota sementara Republik Indonesia pada tahun 1946. Dikenal sebagai \\\"Kota Pelajar\\\" karena jumlah mahasiswa yang tinggi, Yogyakarta terus berkembang sebagai pusat pendidikan, kebudayaan, dan pariwisata di Indonesia.</string>
     <string name="motif_batik">Motif Batik</string>
     <string name="destinasi_wisata">Destinasi Wisata</string>
     <string name="berita_acara">Berita dan Acara</string>
+    <string name="tentang_motif">Motif batik kawung adalah motif tradisional Jawa yang terdiri dari pola bundar teratur, sering dikaitkan dengan simbol \"kawung\" yang merupakan buah pohon aren. Kawung memiliki makna kemakmuran dan kelimpahan, serta sering dianggap sebagai simbol kekuasaan dan keadilan. Motif ini dipakai oleh bangsawan dan raja sebagai lambang kebesaran. Saat ini, batik kawung tetap digunakan dalam berbagai karya tekstil dan dihargai sebagai bagian dari warisan budaya batik Indonesia...</string>
+    <string name="tentang_motif_batik">Tentang motif batik ini</string>
 </resources>

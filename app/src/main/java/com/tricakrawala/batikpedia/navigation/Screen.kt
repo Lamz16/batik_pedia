@@ -12,11 +12,11 @@ sealed class Screen(val route : String) {
     }
 
 
-    object Detail : Screen("home/{nusantaraId}"){
-        fun createRoute(nusantaraId : String) = "home/$nusantaraId"
-    }
-
     object Katalog : Screen("katalog")
+
+    object DetailBatik : Screen("katalog/{idBatik}"){
+        fun createRoute(idBatik : Long) = "katalog/$idBatik"
+    }
     object Edukasi : Screen("edukasi")
     object Wisata : Screen("wisata")
 }
