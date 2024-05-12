@@ -29,6 +29,7 @@ val dataModule = module {
     viewModel { WisataViewModel(get()) }
     viewModel { BeritaViewModel(get()) }
     viewModel { DetailBatikViewModel(get()) }
+    viewModel { EdukasiViewModel(get()) }
 }
 
 fun provideDataStore(context: Context): DataStore<Preferences> {
