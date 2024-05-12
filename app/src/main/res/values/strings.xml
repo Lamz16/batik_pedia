@@ -23,4 +23,7 @@
     <string name="berita_acara">Berita dan Acara</string>
     <string name="tentang_motif">Motif batik kawung adalah motif tradisional Jawa yang terdiri dari pola bundar teratur, sering dikaitkan dengan simbol \"kawung\" yang merupakan buah pohon aren. Kawung memiliki makna kemakmuran dan kelimpahan, serta sering dianggap sebagai simbol kekuasaan dan keadilan. Motif ini dipakai oleh bangsawan dan raja sebagai lambang kebesaran. Saat ini, batik kawung tetap digunakan dalam berbagai karya tekstil dan dihargai sebagai bagian dari warisan budaya batik Indonesia...</string>
     <string name="tentang_motif_batik">Tentang motif batik ini</string>
+    <string name="edukasi">Konten Edukasi</string>
+    <string name="kursus_membatik">Kursus Membatik</string>
+    <string name="video_membatik">Video Membatik</string>
 </resources>
